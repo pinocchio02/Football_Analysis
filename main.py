@@ -10,17 +10,35 @@ from speed_and_distance_estimator import SpeedAndDistance_Estimator
 
 
 def main():
+    # save cropped image of a player
+    video_frames = read_video('input_videos/08fd33_4.mp4')
     # Read Video
-    video_frames = read_video('input_videos\A1606b0e6_0.mp4')
 
     # Initialize Tracker
     tracker = Tracker('models/best.pt')
 
     tracks = tracker.get_object_tracks(video_frames,
                                        read_from_stub=True,
-                                       stub_path='stubs/track_stubs.pkl')
-    # Get object positions 
+                                       stub_path='stubs/track_stubs.pkl')    # # Get object positions 
+    
+    #get object position
     tracker.add_position_to_tracks(tracks)
+
+    # frame_idx = 0  # choose which frame you want
+
+    # players_in_frame = tracks['players'][frame_idx]
+
+    # for track_id, player in players_in_frame.items():
+    #     bbox = player['bbox']
+    #     frame = video_frames[frame_idx]
+
+    #     cropped_image = frame[
+    #         int(bbox[1]):int(bbox[3]),
+    #         int(bbox[0]):int(bbox[2])
+    #     ]
+
+    #     cv2.imwrite(f'output_videos/player_{track_id}.jpg', cropped_image)
+
 
     # camera movement estimator
     camera_movement_estimator = CameraMovementEstimator(video_frames[0])
@@ -69,19 +87,21 @@ def main():
             team_ball_control.append(team_ball_control[-1])
     team_ball_control= np.array(team_ball_control)
 
-
     # Draw output 
     ## Draw object Tracks
-    output_video_frames = tracker.draw_annotations(video_frames, tracks,team_ball_control)
+    output_video_frames = tracker.draw_annotations(
+        video_frames,
+        tracks, team_ball_control)
 
-    ## Draw Camera movement
+
+    # Draw Camera movement
     output_video_frames = camera_movement_estimator.draw_camera_movement(output_video_frames,camera_movement_per_frame)
 
-    ## Draw Speed and Distance
+    # Draw Speed and Distance
     speed_and_distance_estimator.draw_speed_and_distance(output_video_frames,tracks)
 
     # Save video
-    save_video(output_video_frames, 'output_videos/output_video.avi')
+    save_video(output_video_frames, "output_videos/output_video.mp4")
 
 if __name__ == '__main__':
     main()

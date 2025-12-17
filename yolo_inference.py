@@ -13,7 +13,7 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 # MP4 writer (forces MP4 output)
 fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-out = cv2.VideoWriter("final_output.mp4", fourcc, fps, (width, height))
+out = cv2.VideoWriter("output_videos/final_output1.mp4", fourcc, fps, (width, height))
 
 while True:
     ret, frame = cap.read()

@@ -8,6 +8,7 @@ import cv2
 import sys 
 sys.path.append('../')
 from utils import get_center_of_bbox, get_bbox_width, get_foot_position
+# , get_foot_position
 
 class Tracker:
     def __init__(self, model_path):
@@ -183,10 +184,18 @@ class Tracker:
 
         return frame
 
-    def draw_annotations(self,video_frames, tracks,team_ball_control):
-        output_video_frames= []
+    def draw_annotations(self, video_frames, tracks, team_ball_control):
+        output_video_frames = []
+
+        num_tracked_frames = len(tracks["players"])
+
         for frame_num, frame in enumerate(video_frames):
             frame = frame.copy()
+
+            # ✅ If no tracking info for this frame, just write raw frame
+            if frame_num >= num_tracked_frames:
+                output_video_frames.append(frame)
+                continue
 
             player_dict = tracks["players"][frame_num]
             ball_dict = tracks["ball"][frame_num]
