@@ -143,6 +143,8 @@ The output includes:
 
 - Speed and distance estimation
 
+- Camera movement estimation
+
 ## 📌 Notes
 
 Large files such as videos, datasets, trained models, and cache files are excluded using .gitignore
@@ -153,8 +155,8 @@ Intended for learning, experimentation, and portfolio demonstration
 
 ## 👤 Author
 
-Om Ramani
-Master’s Student in Computer Science
+Om Ramani<br>
+Master’s Student in Computer Science<br>
 Portfolio Project – Computer Vision & Deep Learning
 
 ## 📄 License
