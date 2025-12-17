@@ -1,192 +1,151 @@
-⚽ Football Match Analysis Using Computer Vision
-📌 Overview
+# ⚽ Football Match Analysis Using Computer Vision
 
-Football (soccer) generates massive amounts of video data during matches, but extracting meaningful insights from this footage remains a challenge. Analysts and coaches require accurate and automated tools to evaluate player performance, team strategies, ball control, and movement patterns.
+An end-to-end computer vision–based football (soccer) video analysis system that automatically extracts player-level and team-level insights from match footage using deep learning and video analytics.
 
-This project presents a computer vision–based football match analysis system that automatically processes match footage to extract performance metrics and tactical insights.
-The system integrates detection, tracking, and analysis modules to produce an annotated output video highlighting key events and statistics.
+This project is designed as a **portfolio project** to demonstrate applied skills in object detection, tracking, spatial analysis, and video processing.
 
-This project is developed as a portfolio-focused computer vision project, demonstrating practical application of deep learning and video analytics in sports.
+---
 
-🎯 Key Features
+## 🧠 Problem Statement
 
-🧍‍♂️ Player & Referee Detection and Tracking
+Football matches generate large volumes of video data, but manually extracting insights such as player movement, ball possession, and team performance is time-consuming and subjective.
 
-⚽ Ball Detection and Tracking
+This project aims to build an **automated football match analysis pipeline** that integrates detection, tracking, and analytical modules to produce performance metrics and tactical insights from raw match footage.
 
-🟡 Marker on Player Possessing the Ball
+---
 
-🔢 Player Number Identification
+## ✨ Features
 
-🎽 Team Assignment
+- 🧍 Player and referee detection & tracking  
+- ⚽ Ball detection with possession assignment  
+- 🎯 Marker on player currently possessing the ball  
+- 🔢 Player number identification  
+- 🎽 Automatic team assignment  
+- 📊 Team-wise ball possession calculation  
+- 🎥 Camera movement estimation  
+- 📏 Player speed and distance estimation  
+- 🎬 Annotated output video with visual overlays  
 
-📊 Team-wise Ball Possession Analysis
+---
 
-🎥 Camera Movement Estimation
+## 🛠️ Tech Stack
 
-📏 Player Speed and Distance Estimation
+- Python 3.10.11  
+- OpenCV  
+- YOLOv8 (Ultralytics)  
+- NumPy  
+- Pandas  
+- Matplotlib (used where applicable)  
 
-🎬 Annotated Output Video with Visual Overlays
+---
 
-🛠️ Tech Stack
+## 📁 Project Structure
 
-Python 3.10.11
-
-OpenCV – Video processing and visualization
-
-YOLOv8 (Ultralytics) – Object detection (players, ball, referees)
-
-NumPy – Numerical computations
-
-Pandas – Data handling (metrics/statistics)
-
-📁 Project Structure
-
+```text
 Football_Analysis/
 │
 ├── main.py
-│   # Entry point for running football video analysis
+│   Entry point for running the football analysis pipeline
 │
 ├── yolo_inference.py
-│   # YOLOv8 inference logic for player, referee, and ball detection
+│   YOLOv8 inference logic for players, referees, and ball detection
 │
 ├── camera_movement_estimator/
 │   └── camera_movement_estimator.py
-│      # Estimates camera motion between frames to normalize player movement
+│      Camera motion estimation between frames
 │
 ├── player_ball_assigner/
 │   └── player_ball_assigner.py
-│      # Assigns ball possession to the closest player
+│      Assigns ball possession to players
 │
 ├── speed_and_distance_estimator/
 │   └── speed_and_distance_estimator.py
-│      # Computes player speed and total distance traveled
+│      Computes player speed and total distance traveled
 │
 ├── team_assigner/
 │   └── team_assigner.py
-│      # Assigns players to teams based on visual features
+│      Assigns players to teams
 │
 ├── trackers/
 │   └── tracker.py
-│      # Multi-object tracking logic for players and ball
+│      Multi-object tracking logic
 │
 ├── utils/
 │   └── video_utils.py
-│      # Utility functions for reading, writing, and processing videos
+│      Video read/write and utility functions
 │
 ├── view_transformer/
 │   └── view_transformer.py
-│      # Performs view normalization / perspective transformation
+│      Perspective and view normalization
 │
 ├── development_and_analysis/
 │   └── code_assignment.ipynb
-│      # Experimental analysis and development notebook (not required for execution)
+│      Experimental analysis notebook (not required to run project)
 │
 ├── training/
-│   # Dataset and YOLO training files (ignored in version control)
+│   Dataset and YOLO training files (ignored in version control)
 │
 ├── output_videos/
-│   # Generated output videos with visual overlays
+│   Generated output videos with visual annotations
 │
 ├── .gitignore
-│   # Excludes models, videos, datasets, and cache files
-│
 ├── .gitattributes
-│   # Git configuration for repository consistency
-│
 └── README.md
-   # Project documentation
 
-🚀 How to Run the Project
-1️⃣ Train the YOLO Model
+## 🚀 How to Run the Project
 
-First, train the player detection model using YOLO (example command):
+### 🔹 Step 1: Train the YOLO Model
 
+Train the YOLO model on the football dataset:
+
+```bash
 yolo task=detect mode=train model=yolov5x.pt \
-data="path/to/data.yaml" \
-epochs=100 imgsz=640
-
-
-After training, YOLO will generate:
+data="path/to/data.yaml" epochs=100 imgsz=640
+After training, the following files are generated:
 
 best.pt
 
 last.pt
 
-2️⃣ Set Up the Model
+🔹 Step 2: Configure the Model Path
+Place best.pt inside a local models/ directory and update the tracker initialization in the code:
 
-Copy best.pt into the models/ directory
-
-Update the model path inside the tracker:
-
+python
+Copy code
 tracker = Tracker("models/best.pt")
+🔹 Step 3: Provide Input Video
+Specify the path of the football match video inside main.py.
 
-3️⃣ Provide Input Video
+🔹 Step 4: Run the Analysis
+Execute the main script:
 
-In main.py, set the path of the input football match video:
-
-input_video_path = "input_videos/your_video.mp4"
-
-4️⃣ Run the Analysis
-
-Execute:
-
+bash
+Copy code
 python main.py
+🔹 Step 5: Output
+An annotated output video is generated in the output_videos/ directory.
 
-5️⃣ Output
+The output includes:
 
-The system generates an annotated output video
-
-Displays:
-
-Player & ball tracking
+Player and ball tracking
 
 Team assignment
 
-Ball possession
+Ball possession statistics
 
-Speed & distance traveled
-
-Camera motion compensation
+Speed and distance estimation
 
 📌 Notes
+Large files such as videos, datasets, trained models, and cache files are excluded using .gitignore
 
-Large files (.pt, .mp4, datasets, cache files) are excluded using .gitignore
+This project focuses on offline video analysis
 
-The project focuses on end-to-end video analysis, not real-time deployment
-
-Designed for learning, experimentation, and portfolio demonstration
-
-🎓 Use Case
-
-Sports analytics
-
-Performance evaluation
-
-Tactical analysis
-
-Computer vision learning project
-
-Portfolio demonstration for CV / ML roles
-
-🔮 Future Improvements
-
-Real-time inference optimization
-
-Improved jersey number recognition
-
-Advanced tactical heatmaps
-
-Player role classification
-
-Multi-camera support
+Intended for learning, experimentation, and portfolio demonstration
 
 👤 Author
-
 Om Ramani
 Master’s Student in Computer Science
 Portfolio Project – Computer Vision & Deep Learning
 
 📄 License
-
-This project is intended for educational and portfolio purposes.
+This project is intended for educational and portfolio purposes only.
