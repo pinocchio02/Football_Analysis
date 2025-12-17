@@ -91,6 +91,7 @@ Football_Analysis/
 ├── .gitignore
 ├── .gitattributes
 └── README.md
+```
 
 ## 🚀 How to Run the Project
 
@@ -101,51 +102,61 @@ Train the YOLO model on the football dataset:
 ```bash
 yolo task=detect mode=train model=yolov5x.pt \
 data="path/to/data.yaml" epochs=100 imgsz=640
+```
 After training, the following files are generated:
 
-best.pt
+- best.pt
 
-last.pt
+- last.pt
 
-🔹 Step 2: Configure the Model Path
+### 🔹 Step 2: Configure the Model Path
+
 Place best.pt inside a local models/ directory and update the tracker initialization in the code:
 
-python
-Copy code
+```bash
 tracker = Tracker("models/best.pt")
-🔹 Step 3: Provide Input Video
+```
+
+### 🔹 Step 3: Provide Input Video
+
 Specify the path of the football match video inside main.py.
 
-🔹 Step 4: Run the Analysis
+### 🔹 Step 4: Run the Analysis
+
 Execute the main script:
 
-bash
-Copy code
+```bash
 python main.py
-🔹 Step 5: Output
+```
+
+### 🔹 Step 5: Output
+
 An annotated output video is generated in the output_videos/ directory.
 
 The output includes:
 
-Player and ball tracking
+- Player and ball tracking
 
-Team assignment
+- Team assignment
 
-Ball possession statistics
+- Ball possession statistics
 
-Speed and distance estimation
+- Speed and distance estimation
 
-📌 Notes
+## 📌 Notes
+
 Large files such as videos, datasets, trained models, and cache files are excluded using .gitignore
 
 This project focuses on offline video analysis
 
 Intended for learning, experimentation, and portfolio demonstration
 
-👤 Author
+## 👤 Author
+
 Om Ramani
 Master’s Student in Computer Science
 Portfolio Project – Computer Vision & Deep Learning
 
-📄 License
+## 📄 License
+
 This project is intended for educational and portfolio purposes only.
