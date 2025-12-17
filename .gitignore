@@ -1,11 +1,15 @@
-# Personal documents
+# Personal
 CV/
 
 # Python cache
 __pycache__/
 *.pyc
 
-# Models & binaries
+# Jupyter
+*.ipynb
+*.ipynb_checkpoints/
+
+# Models / binaries
 *.pt
 *.pkl
 
@@ -14,6 +18,6 @@ __pycache__/
 *.jpg
 *.png
 
-# Word temp files
+# Temp files
 ~$*
 *.tmp
